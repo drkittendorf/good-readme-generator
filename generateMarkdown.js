@@ -42,7 +42,8 @@ ${data.testInstructions}
 
 
 ## Questions
-${data.githubAddress}
+Please contact me at the address(s) below:<br>
+${data.githubAddress}<br>
 ${data.emailAddress}
 
 `;
