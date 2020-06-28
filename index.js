@@ -1,6 +1,7 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
 const generateMarkdown = require("./generateMarkdown");
+const path = require("path");
 // array of questions for user
 // "What is your project title?" **title of ReadMe
 // "What is the description of your project?" #Description
@@ -11,6 +12,8 @@ const generateMarkdown = require("./generateMarkdown");
 // "What level of license? - https://choosealicense.com/licenses/" https://gist.github.com/artem-solovev/e1602722f84835f35daef4dfb3df5500#license
 // "What is your github username?" enter under ##Questions
 // "What is your email address?" enter under ##Questions
+
+
 const questions = [
     {
         type: "input",
@@ -25,7 +28,7 @@ const questions = [
     {
         type: "input",
         message: "Please enter your installation instructions:",
-        name: "instructions",
+        name: "installation",
     },
     {
         type: "input",
@@ -35,7 +38,7 @@ const questions = [
     {
         type: "input",
         message: "What are your guidelines for contributing to this project?",
-        name: "guideLines",
+        name: "contributing",
     },
     {
         type: "input",
@@ -69,47 +72,42 @@ const questions = [
     }
 ]
 
-//function to write README file
-function writeToFile() {
-    fs.appendeFile(generateMarkdown(data), function (err) {
 
-        if (err) {
-            console.log("There was an error writing the file");
-        } else {
-            console.log("File has been written")
-        }
-    });
+function licenseBadge(data) {
+    switch (data.licenseLevel) {
+        case 'GNU AGPLv3': `[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)`;
+        case 'GNU GPLv3': return `[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)`;
+        case 'GNU LGPLv3': return `[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)`;
+        case 'GNU FDL v1.3': return `[![License: FDL 1.3](https://img.shields.io/badge/License-FDL%20v1.3-blue.svg)](https://www.gnu.org/licenses/fdl-1.3)`;
+        case 'Mozilla Public License 2.0': return `[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)`;
+        case 'Apache License 2.0': return `[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)`;
+        case 'MIT License': return `[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`;
+        case 'Boost Software License 1.0': return `[![License](https://img.shields.io/badge/License-Boost%201.0-lightblue.svg)](https://www.boost.org/LICENSE_1_0.txt)`;
+        case 'IBM Public License Version 1.0': return `[![License: IPL 1.0](https://img.shields.io/badge/License-IPL%201.0-blue.svg)](https://opensource.org/licenses/IPL-1.0)`;
+        case 'Eclipse Public License 1.0': return `[![License](https://img.shields.io/badge/License-EPL%201.0-red.svg)](https://opensource.org/licenses/EPL-1.0)`;
+        case 'Unlicense': return `[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)`;
+        default: return `No license selected, default exclusive copyright in place`;
+    };
+}
+
+
+// function to write README file
+function writeToFile(fileName, data) {
+    return fs.writeFileSync((path.join(process.cwd(), fileName)), data)
 };
 
 
 // function to initialize program
-
-
 function init() {
     inquirer.prompt(questions)
         .then(function (data) {
-            const fileName = data.name.toUpperCase().split(' ').join('') + ".md";
-
-            fs.appendFile(fileName, JSON.stringify(data, null, '\t'), function (err) {
-
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    console.log("Its run");
-                }
-            });
-        }).then(function writeToFile() {
-            if (err) {
-                console.log("Something went wrong");
-            } else {
-                console.log("Its done");
-            }
-        })
+            licenseBadge();
+            writeToFile("READM3.md", generateMarkdown(data));
+         })
+       
         .catch(error => {
-            console.error("rejected function");
+            console.error("ERROR CAUGHT");
         });
-
 };
 
 // function call to initialize program
