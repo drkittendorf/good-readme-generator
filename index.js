@@ -19,31 +19,31 @@ const questions = [
     message: "What is your project title?",
     name: "name",
   },
-//   {
-//     type: "input",
-//     message: "What is the description of your project?",
-//     name: "description",
-//   },
-//   {
-//     type: "input",
-//     message: "Please enter your installation instructions:",
-//     name: "installation",
-//   },
-//   {
-//     type: "input",
-//     message: "Enter any usage information",
-//     name: "usage",
-//   },
-//   {
-//     type: "input",
-//     message: "What are your guidelines for contributing to this project?",
-//     name: "contributing",
-//   },
-//   {
-//     type: "input",
-//     message: "Do you have test instructions?",
-//     name: "testInstructions",
-//   },
+  {
+    type: "input",
+    message: "What is the description of your project?",
+    name: "description",
+  },
+  {
+    type: "input",
+    message: "Please enter your installation instructions:",
+    name: "installation",
+  },
+  {
+    type: "input",
+    message: "Enter any usage information",
+    name: "usage",
+  },
+  {
+    type: "input",
+    message: "What are your guidelines for contributing to this project?",
+    name: "contributing",
+  },
+  {
+    type: "input",
+    message: "Do you have test instructions?",
+    name: "testInstructions",
+  },
   {
     type: "list",
     message: "What level of license?",
@@ -60,16 +60,16 @@ const questions = [
       "Unlicense",
     ],
   },
-//   {
-//     type: "input",
-//     message: "What is your github username?",
-//     name: "githubAddress",
-//   },
-//   {
-//     type: "input",
-//     message: "What is your email address?",
-//     name: "emailAddress",
-//   },
+  {
+    type: "input",
+    message: "What is your github username?",
+    name: "githubAddress",
+  },
+  {
+    type: "input",
+    message: "What is your email address?",
+    name: "emailAddress",
+  },
 ];
 
 function licenseBadge(data) {
