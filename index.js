@@ -1,6 +1,6 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
-const generateMarkdown = require("./generateMarkdown");
+const generateMarkdown = require("./develop/lib/generateMarkdown");
 const path = require("path");
 // array of questions for user
 // "What is your project title?" **title of ReadMe
@@ -130,7 +130,7 @@ function init() {
       const licensedJSON = licenseBadge(data);
 
     //   console.log(" MD after ... \n", licensedJSON);
-      writeToFile("READM3.md", generateMarkdown(licensedJSON));
+      writeToFile("assets/output/READM3.md", generateMarkdown(licensedJSON));
     })
 
     .catch((error) => {
